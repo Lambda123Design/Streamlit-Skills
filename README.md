@@ -6,6 +6,8 @@ B) Steps for Deployment on Streamlit Cloud:
 
 C) Development of Streamlit App for Simple RNN Project - IMDb Sentiment Analysis
 
+D) Development of Streamlit App for LSTM Next Word Prediction
+
 **A) Basic Working on Streamlit**
 
 1. Open a app.py in VS Code, and code st.title("Hello Streamlit")
@@ -122,4 +124,62 @@ else:
 
 This completes the Streamlit app workflow, from input interface, preprocessing, prediction, displaying results, to deployment.
 
+**D) Development of Streamlit App for LSTM Next Word Prediction**
 
+1. Create app file: Inside LSTM_RNN folder, create app.py for the Streamlit web interface and prediction logic.
+
+2. Import required libraries:
+
+"import pickle
+import numpy as np
+import streamlit as st
+from keras.models import load_model
+from keras.preprocessing.sequence import pad_sequences"
+
+3. Load model and tokenizer:
+
+"model = load_model("next_word_LSTM.h5")
+
+with open("tokenizer.pickle", "rb") as handle:
+    tokenizer = pickle.load(handle)"
+
+4. Add prediction function (reuse from notebook): Takes model, tokenizer, input text, and max sequence length → preprocesses, pads sequence, and predicts next word.
+
+5. Build Streamlit UI:
+
+(i) App title: "st.title("Next Word Prediction with LSTM and Early Stopping")"
+
+(ii) Text input box (with default text): "input_text = st.text_input("Enter a sequence of words:", "to be or not to be")"
+
+(iii) Prediction button:
+
+"if st.button("Predict Next Word"):
+    max_sequence_len = model.input_shape[1] + 1
+    next_word = predict_next_word(model, tokenizer, input_text, max_sequence_len)
+    st.write(f"Predicted next word: {next_word}")"
+
+6. Run the app:
+
+(i) Navigate to project folder in terminal
+
+(ii) Run: "streamlit run app.py"
+
+7. App behavior:
+
+(i) Loads model and tokenizer into memory (takes a little time)
+
+(ii) UI shows title, input box, and button
+
+(iii) Enter a phrase → click Predict Next Word → app displays predicted next word
+
+8. Example inputs & outputs:
+
+(i) “to be or not to be” → “considered” / “crack”
+
+(ii) “Well, good night if you do meet” → “two”
+
+(iii) “Welcome” → “friends”
+
+(iv) “Tis but our” → “fantasy”
+
+9. Users can try different inputs; performance improves with more training epochs.
