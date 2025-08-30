@@ -1,5 +1,13 @@
 # Streamlit-Skills
 
+A) Basic Working on Streamlit
+
+B) Steps for Deployment on Streamlit Cloud:
+
+C) Development of Streamlit App for Simple RNN Project - IMDb Sentiment Analysis
+
+**A) Basic Working on Streamlit**
+
 1. Open a app.py in VS Code, and code st.title("Hello Streamlit")
 
 2. Run in command prompt using "streamlit run app.py"
@@ -41,7 +49,7 @@ uploaded_file=st.file_uploader("Choose a CSV File",type="csv")
 if uploaded_file is not None:
    df=pd.read_csv(uploaded_file); st.write(df)
 
-## Steps for Deployment on Streamlit:
+## B) Steps for Deployment on Streamlit Cloud:
 
 (i) Take the pickle file along with the requirement.txt; you can commit via GitHub command line or directly copy–paste files. Upload all files (Readme, app.py, pickle file, requirement.txt).
 
@@ -60,3 +68,58 @@ if uploaded_file is not None:
 (viii) Status shows “app is in the oven / warming up” — meaning server is preparing.
 
 (ix) Once ready, the app runs on the generated URL, accessible publicly in the Streamlit cloud.
+
+### C) Development of Streamlit App for Simple RNN Project - IMDb Sentiment Analysis:
+
+(i) Create a main.py file to combine all functionality from prediction.ipynb (decoding reviews, preprocessing text, loading trained model).
+
+(ii) Import necessary libraries:
+
+(a) "import streamlit as st"
+
+(b) Load trained model with load_model
+
+(c) Import IMDb dataset, sequence preprocessing utilities
+
+(d) Load word index for converting reviews to vector indices
+
+(e) Define helper functions for decoding reviews and preprocessing text
+
+(iii) Define the prediction function
+
+(iv) Set up Streamlit interface: 
+
+(a) Add title and description: "st.title("IMDb Movie Review Sentiment Analysis")"; "st.write("Enter a movie review to classify it as positive or negative.")"
+
+(b) Create user input area: "user_input = st.text_area("Enter your movie review:")"
+
+(c) Add button for prediction: "if st.button("Classify"):
+    processed_input = preprocess_text(user_input)
+    prediction = model.predict(processed_input)
+    sentiment = "positive" if prediction[0][0] > 0.5 else "negative"
+    st.write(f"Sentiment: {sentiment}")
+    st.write(f"Prediction score: {prediction[0][0]}")
+else:
+    st.write("Please enter a movie review.")" 
+
+(d) Optionally, display a sample review using decode_review helper function)
+
+(v) Run the app:
+
+(a) Open terminal → navigate to folder containing "main.py"
+
+(b) Execute: "streamlit run main.py"
+
+(c) App launches in browser; enter a review and click Classify
+
+(d) Model outputs sentiment (positive/negative) and prediction score (confidence)
+
+(vi) Deployment (Krish Gave as a Assignment, as it was explained in ANN Project Video:)
+
+(a) Upload all files to GitHub
+
+(b) Deploy directly on Streamlit Cloud
+
+This completes the Streamlit app workflow, from input interface, preprocessing, prediction, displaying results, to deployment.
+
+
